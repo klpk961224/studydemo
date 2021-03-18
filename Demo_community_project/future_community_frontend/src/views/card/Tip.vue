@@ -1,0 +1,40 @@
+<template>
+  <el-card class="box-card" shadow="never">
+    <div slot="header">
+      <span>🥳 每日一句</span>
+    </div>
+    <div>
+      <div class="has-text-left block">{{ tip.content }}</div>
+      <div class="has-text-right mt-5 block">——{{ tip.author }}</div>
+    </div>
+  </el-card>
+</template>
+
+<script>
+import { getTodayTip } from "@/api/tip";
+export default {
+  name: "Tip",
+  data() {
+    return {
+      tip: {
+        // content: "天不生我李淳罡，剑道万古如长夜",
+        // author: "烽火戏诸侯",
+      },
+    };
+  },
+  created() {
+    this.fetchTodayTip();
+  },
+  methods: {
+    async fetchTodayTip() {
+      getTodayTip().then((value) => {
+        const { data } = value;
+        this.tip = data;
+      });
+    },
+  },
+};
+</script>
+
+<style scoped>
+</style>
