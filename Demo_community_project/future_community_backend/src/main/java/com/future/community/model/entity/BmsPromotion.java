@@ -1,6 +1,9 @@
 package com.future.community.model.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,15 +11,14 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.util.Date;
 
 @Data
 @Builder
 @Accessors(chain = true)
-@TableName("bms_tip")
+@TableName("bms_promotion")
 @NoArgsConstructor
 @AllArgsConstructor
-public class BmsTip implements Serializable {
+public class BmsPromotion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     /**
@@ -26,21 +28,21 @@ public class BmsTip implements Serializable {
     private Integer id;
 
     /**
-     * 名句内容
+     * 标题
      */
-    @TableField("content")
-    private String content;
+    @TableField("title")
+    private String title;
 
     /**
-     * 名句作者
+     * 链接
      */
-    @TableField("author")
-    private String author;
+    @TableField("link")
+    private String link;
 
 
     /**
-     * 1:使用, 0:过期
+     * 描述
      */
-    @TableField("`type`")
-    private boolean type;
+    @TableField("description")
+    private String description;
 }

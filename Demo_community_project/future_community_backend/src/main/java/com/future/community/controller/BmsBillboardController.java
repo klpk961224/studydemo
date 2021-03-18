@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/billboard")
-public class BmsBillboardControler extends BaseController {
+public class BmsBillboardController extends BaseController {
 
     @Resource
     private IBmsBillboardService bmsBillboardService;
