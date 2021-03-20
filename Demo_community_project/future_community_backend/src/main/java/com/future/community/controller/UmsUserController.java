@@ -2,6 +2,7 @@ package com.future.community.controller;
 
 
 import com.future.community.common.api.ApiResult;
+import com.future.community.model.dto.LoginDTO;
 import com.future.community.model.dto.RegisterDTO;
 import com.future.community.model.entity.UmsUser;
 import com.future.community.service.IUmsUserService;
@@ -35,17 +36,17 @@ public class UmsUserController extends BaseController {
         map.put("user", user);
         return ApiResult.success(map);
     }
-//
-//    @RequestMapping(value = "/login", method = RequestMethod.POST)
-//    public ApiResult<Map<String, String>> login(@Valid @RequestBody LoginDTO dto) {
-//        String token = iUmsUserService.executeLogin(dto);
-//        if (ObjectUtils.isEmpty(token)) {
-//            return ApiResult.failed("账号密码错误");
-//        }
-//        Map<String, String> map = new HashMap<>(16);
-//        map.put("token", token);
-//        return ApiResult.success(map, "登录成功");
-//    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ApiResult<Map<String, String>> login(@Valid @RequestBody LoginDTO dto) {
+        String token = iUmsUserService.executeLogin(dto);
+        if (ObjectUtils.isEmpty(token)) {
+            return ApiResult.failed("账号密码错误");
+        }
+        Map<String, String> map = new HashMap<>(16);
+        map.put("token", token);
+        return ApiResult.success(map, "登录成功");
+    }
 //
 //    @RequestMapping(value = "/info", method = RequestMethod.GET)
 //    public ApiResult<UmsUser> getUser(@RequestHeader(value = USER_NAME) String userName) {

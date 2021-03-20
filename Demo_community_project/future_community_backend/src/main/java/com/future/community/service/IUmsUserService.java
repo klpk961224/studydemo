@@ -1,6 +1,7 @@
 package com.future.community.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.future.community.model.dto.LoginDTO;
 import com.future.community.model.dto.RegisterDTO;
 import com.future.community.model.entity.UmsUser;
 
@@ -15,21 +16,22 @@ public interface IUmsUserService extends IService<UmsUser> {
      */
     UmsUser executeRegister(RegisterDTO dto);
 
-//    /**
-//     * 获取用户信息
-//     *
-//     * @param username
-//     * @return dbUser
-//     */
-//    UmsUser getUserByUsername(String username);
-//
-//    /**
-//     * 用户登录
-//     *
-//     * @param dto
-//     * @return 生成的JWT的token
-//     */
-//    String executeLogin(LoginDTO dto);
+    /**
+     * 获取用户信息
+     *
+     * @param username
+     * @return dbUser
+     */
+    UmsUser getUserByUsername(String username);
+
+
+    /**
+     * 用户登录
+     *
+     * @param dto
+     * @return 生成的JWT的token
+     */
+    String executeLogin(LoginDTO dto);
 //
 //    /**
 //     * 获取用户信息
