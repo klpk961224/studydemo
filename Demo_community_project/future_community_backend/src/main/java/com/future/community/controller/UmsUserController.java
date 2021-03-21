@@ -1,21 +1,25 @@
 package com.future.community.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.future.community.common.api.ApiResult;
 import com.future.community.model.dto.LoginDTO;
 import com.future.community.model.dto.RegisterDTO;
+import com.future.community.model.entity.BmsPost;
 import com.future.community.model.entity.UmsUser;
+import com.future.community.service.IBmsPostService;
 import com.future.community.service.IUmsUserService;
+import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.future.community.jwt.JwtUtil.USER_NAME;
 
 
 @RestController
@@ -23,8 +27,8 @@ import java.util.Map;
 public class UmsUserController extends BaseController {
     @Resource
     private IUmsUserService iUmsUserService;
-//    @Resource
-//    private IBmsPostService iBmsPostService;
+    @Resource
+    private IBmsPostService iBmsPostService;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ApiResult<Map<String, Object>> register(@Valid @RequestBody RegisterDTO dto) {
@@ -47,35 +51,35 @@ public class UmsUserController extends BaseController {
         map.put("token", token);
         return ApiResult.success(map, "登录成功");
     }
-//
-//    @RequestMapping(value = "/info", method = RequestMethod.GET)
-//    public ApiResult<UmsUser> getUser(@RequestHeader(value = USER_NAME) String userName) {
-//        UmsUser user = iUmsUserService.getUserByUsername(userName);
-//        return ApiResult.success(user);
-//    }
-//
-//    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-//    public ApiResult<Object> logOut() {
-//        return ApiResult.success(null, "注销成功");
-//    }
-//
-//    @GetMapping("/{username}")
-//    public ApiResult<Map<String, Object>> getUserByName(@PathVariable("username") String username,
-//                                                        @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-//                                                        @RequestParam(value = "size", defaultValue = "10") Integer size) {
-//        Map<String, Object> map = new HashMap<>(16);
-//        UmsUser user = iUmsUserService.getUserByUsername(username);
-//        Assert.notNull(user, "用户不存在");
-//        Page<BmsPost> page = iBmsPostService.page(new Page<>(pageNo, size),
-//                new LambdaQueryWrapper<BmsPost>().eq(BmsPost::getUserId, user.getId()));
-//        map.put("user", user);
-//        map.put("topics", page);
-//        return ApiResult.success(map);
-//    }
-//
-//    @PostMapping("/update")
-//    public ApiResult<UmsUser> updateUser(@RequestBody UmsUser umsUser) {
-//        iUmsUserService.updateById(umsUser);
-//        return ApiResult.success(umsUser);
-//    }
+
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    public ApiResult<UmsUser> getUser(@RequestHeader(value = USER_NAME) String userName) {
+        UmsUser user = iUmsUserService.getUserByUsername(userName);
+        return ApiResult.success(user);
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public ApiResult<Object> logOut() {
+        return ApiResult.success(null, "注销成功");
+    }
+
+    @GetMapping("/{username}")
+    public ApiResult<Map<String, Object>> getUserByName(@PathVariable("username") String username,
+                                                        @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                        @RequestParam(value = "size", defaultValue = "10") Integer size) {
+        Map<String, Object> map = new HashMap<>(16);
+        UmsUser user = iUmsUserService.getUserByUsername(username);
+        Assert.notNull(user, "用户不存在");
+        Page<BmsPost> page = iBmsPostService.page(new Page<>(pageNo, size),
+                new LambdaQueryWrapper<BmsPost>().eq(BmsPost::getUserId, user.getId()));
+        map.put("user", user);
+        map.put("topics", page);
+        return ApiResult.success(map);
+    }
+
+    @PostMapping("/update")
+    public ApiResult<UmsUser> updateUser(@RequestBody UmsUser umsUser) {
+        iUmsUserService.updateById(umsUser);
+        return ApiResult.success(umsUser);
+    }
 }

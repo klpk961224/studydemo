@@ -16,8 +16,8 @@ export default {
   name: "404",
   data() {
     return {
-      times: 10,
-    };
+      times: 10
+    }
   },
   created() {
     this.goHome();
@@ -25,15 +25,15 @@ export default {
   methods: {
     goHome: function () {
       this.timer = setInterval(() => {
-        this.times--;
+        this.times--
         if (this.times === 0) {
-          clearInterval(this.timer);
-          this.$router.push({ path: "/" });
+          clearInterval(this.timer)
+          this.$router.push({path: '/'});
         }
-      }, 1000);
-    },
-  },
-};
+      }, 1000)
+    }
+  }
+}
 </script>
 
 <style scoped>

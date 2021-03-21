@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.future.community.model.dto.LoginDTO;
 import com.future.community.model.dto.RegisterDTO;
 import com.future.community.model.entity.UmsUser;
+import com.future.community.model.vo.ProfileVO;
 
 
 public interface IUmsUserService extends IService<UmsUser> {
@@ -32,12 +33,12 @@ public interface IUmsUserService extends IService<UmsUser> {
      * @return 生成的JWT的token
      */
     String executeLogin(LoginDTO dto);
-//
-//    /**
-//     * 获取用户信息
-//     *
-//     * @param id 用户ID
-//     * @return
-//     */
-//    ProfileVO getUserProfile(String id);
+
+    /**
+     * 获取用户信息
+     *
+     * @param id 用户ID
+     * @return
+     */
+    ProfileVO getUserProfile(String id);
 }

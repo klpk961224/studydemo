@@ -12,24 +12,28 @@
 </template>
 
 <script>
-import { getList } from "@/api/promotion";
+import { getList } from '@/api/promote'
+
 export default {
-  name: "Promotion",
+  name: 'Promotion',
   data() {
     return {
-      list: {},
-    };
+      list: []
+    }
   },
   created() {
-    this.fetchList();
+    this.fetchList()
   },
   methods: {
-    async fetchList() {
-      getList().then((value) => {
-        const { data } = value;
-        this.list = data;
-      });
-    },
-  },
-};
+    fetchList() {
+      getList().then((response) => {
+        const { data } = response
+        this.list = data
+      })
+    }
+  }
+}
 </script>
+
+<style scoped>
+</style>
