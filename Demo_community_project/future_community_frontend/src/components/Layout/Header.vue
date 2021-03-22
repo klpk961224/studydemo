@@ -6,7 +6,7 @@
     >
       <template slot="brand">
         <b-navbar-item tag="div">
-          <img :src="doubaoImg" alt="logo">
+          <img :src="futureImg" alt="logo">
         </b-navbar-item>
 
         <b-navbar-item
@@ -120,7 +120,7 @@ export default {
   data() {
     return {
       logoUrl: require('@/assets/logo.png'),
-      doubaoImg: require('@/assets/image/future.png'),
+      futureImg: require('@/assets/image/future.png'),
       searchKey: '',
       darkMode: false
     }
