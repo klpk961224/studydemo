@@ -3,6 +3,4 @@
 
 项目名称 Demo_community_project -- 论坛案例
 
-项目名称 WarehouseManagementSystem -- 仓库管理系统
-
-WarehouseManagementSystem
+项目名称 Demo_WarehouseManagementSystem -- 仓库管理系统
