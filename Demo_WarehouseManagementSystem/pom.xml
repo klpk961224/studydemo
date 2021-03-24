@@ -13,13 +13,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.3.7.RELEASE</spring-boot.version>
-        <mybatisplus.version>3.4.2</mybatisplus.version>
-        <shiro.version>1.4.1</shiro.version>
-        <druid.version>1.1.18</druid.version>
+        <mybatisplus.version>3.4.1</mybatisplus.version>
+        <shiro.version>1.7.1</shiro.version>
+        <druid.version>1.2.5</druid.version>
         <log4j.version>1.2.17</log4j.version>
-        <hutool.version>4.6.8</hutool.version>
+        <hutool.version>5.6.1</hutool.version>
         <pinyin4j.version>2.5.1</pinyin4j.version>
-        <fastjson.version>1.2.62</fastjson.version>
+        <fastjson.version>1.2.75</fastjson.version>
     </properties>
 
     <dependencies>
@@ -81,6 +81,22 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
+        </dependency>
+        <!-- commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <!--mybatisplus代码生成器-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>${mybatisplus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>2.3</version>
         </dependency>
 
         <!-- web常用 -->
