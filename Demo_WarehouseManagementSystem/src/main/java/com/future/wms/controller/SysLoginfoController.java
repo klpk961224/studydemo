@@ -1,89 +1,93 @@
 package com.future.wms.controller;
 
-import cn.hutool.captcha.CaptchaUtil;
-import cn.hutool.captcha.LineCaptcha;
-import com.future.wms.common.ActiveUser;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.future.wms.common.DataGridView;
 import com.future.wms.common.ResultObj;
-import com.future.wms.common.WebUtils;
 import com.future.wms.model.entity.SysLoginfo;
-import com.future.wms.model.vo.SysUserVo;
+import com.future.wms.model.vo.LoginfoVo;
 import com.future.wms.service.ISysLoginfoService;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.Date;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author evanliu
  * @create 2021-03-24 23:24
  */
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/loginfo")
 public class SysLoginfoController {
 
     @Autowired
-    private ISysLoginfoService sysloginfoService;
+    private ISysLoginfoService sysLoginfoService;
 
-    @RequestMapping("/login")
-    public ResultObj login(SysUserVo userVo, String code, HttpSession session) {
-
-        //获得存储在session中的验证码
-        String sessionCode = (String) session.getAttribute("code");
-        if (code != null && sessionCode.equals(code)) {
-            Subject subject = SecurityUtils.getSubject();
-            AuthenticationToken token = new UsernamePasswordToken(userVo.getLoginname(), userVo.getPwd());
-            try {
-                //对用户进行认证登陆
-                subject.login(token);
-                //通过subject获取以认证活动的user
-                ActiveUser ActiveUser = (ActiveUser) subject.getPrincipal();
-                //将user存储到session中
-                WebUtils.getSession().setAttribute("user", ActiveUser.getSysUser());
-                //记录登陆日志
-                SysLoginfo entity = new SysLoginfo();
-                entity.setLoginname(ActiveUser.getSysUser().getName() + "-" + ActiveUser.getSysUser().getLoginname());
-                entity.setLoginip(WebUtils.getRequest().getRemoteAddr());
-                entity.setLogintime(new Date());
-                sysloginfoService.save(entity);
-
-                return ResultObj.LOGIN_SUCCESS;
-            } catch (AuthenticationException e) {
-                e.printStackTrace();
-                return ResultObj.LOGIN_ERROR_PASS;
-            }
-        } else {
-            return ResultObj.LOGIN_ERROR_CODE;
-        }
-
+    /**
+     * @Description [查询所有登陆日志的信息]
+     * @Author evanliu
+     * @Date 2021-03-25 23:37
+     * @param: loginfoVo ->
+     * @return com.future.wms.common.DataGridView
+     **/
+    @RequestMapping("loadAllLoginfo")
+    public DataGridView loadAllLoginfo(LoginfoVo loginfoVo) {
+        IPage<SysLoginfo> page = new Page<SysLoginfo>(loginfoVo.getPage(), loginfoVo.getLimit());
+        QueryWrapper<SysLoginfo> queryWrapper = new QueryWrapper<>();
+        //进行模糊查询
+        queryWrapper.like(StringUtils.isNotBlank(loginfoVo.getLoginname()), "loginname", loginfoVo.getLoginname());
+        queryWrapper.like(StringUtils.isNotBlank(loginfoVo.getLoginip()), "loginip", loginfoVo.getLoginip());
+        //数据库中登陆时间要大于用户输入的开始时间且小于用户登陆的结束时间
+        queryWrapper.ge(loginfoVo.getStartTime() != null, "logintime", loginfoVo.getStartTime());
+        queryWrapper.le(loginfoVo.getEndTime() != null, "logintime", loginfoVo.getEndTime());
+        //根据登陆时间进行降序排序
+        queryWrapper.orderByDesc("logintime");
+        sysLoginfoService.page(page, queryWrapper);
+        return new DataGridView(page.getTotal(), page.getRecords());
     }
 
     /**
-     * 得到登陆验证码
-     * @param response
-     * @param session
-     * @throws IOException
-     */
-    @RequestMapping("/getCode")
-    public void getCode(HttpServletResponse response, HttpSession session) throws IOException {
-        //定义图形验证码的长和宽
-        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(116, 36, 4, 5);
-        session.setAttribute("code", lineCaptcha.getCode());
+     * @Description [删除单条日志]
+     * @Author evanliu
+     * @Date 2021-03-25 23:39
+     * @param: id ->
+     * @return com.future.wms.common.ResultObj
+     **/
+    @RequestMapping("deleteLoginfo")
+    public ResultObj deleteLoginfo(Integer id) {
         try {
-            ServletOutputStream outputStream = response.getOutputStream();
-            lineCaptcha.write(outputStream);
-            outputStream.close();
-        } catch (IOException e) {
+            sysLoginfoService.removeById(id);
+            return ResultObj.DELETE_SUCCESS;
+        } catch (Exception e) {
             e.printStackTrace();
+            return ResultObj.DELETE_ERROR;
+        }
+    }
+
+    /**
+     * @Description [批量删除]
+     * @Author evanliu
+     * @Date 2021-03-25 23:39
+     * @param: loginfoVo ->
+     * @return com.future.wms.common.ResultObj
+     **/
+    @RequestMapping("batchDeleteLoginfo")
+    public ResultObj batchDeleteLoginfo(LoginfoVo loginfoVo) {
+        try {
+            Collection<Serializable> idList = new ArrayList<Serializable>();
+            for (Integer id : loginfoVo.getIds()) {
+                idList.add(id);
+            }
+            this.sysLoginfoService.removeByIds(idList);
+            return ResultObj.DELETE_SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultObj.DELETE_ERROR;
         }
     }
 }

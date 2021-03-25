@@ -11,12 +11,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="icon" href="/resources/favicon.ico">
+    <link rel="icon" href="resources/favicon.ico">
     <!--<link rel="stylesheet" href="resources/layui/css/layui.css" media="all" />
     <link rel="stylesheet" href="resources/css/public.css" media="all" />-->
-    <link rel="stylesheet" href="resources/layui/css/layui.css" th:href="@{/resources/layui/css/layui.css}"
+    <link rel="stylesheet" href="resources/layui/css/layui.css" th:href="@{resources/layui/css/layui.css}"
           media="all"/>
-    <link rel="stylesheet" href="resources/css/public.css" th:href="@{/resources/css/public.css}" media="all"/>
+    <link rel="stylesheet" href="resources/css/public.css" th:href="@{resources/css/public.css}" media="all"/>
 </head>
 <body class="childrenBody">
 <!--查询条件-->
@@ -81,7 +81,7 @@
 </div>
 
 
-<script type="text/javascript" src="/resources/layui/layui.js"></script>
+<script type="text/javascript" src="resources/layui/layui.js"></script>
 
 <script type="text/javascript">
     layui.use(['jquery', 'form', 'layer', 'laydate', 'table'], function () {
@@ -104,7 +104,7 @@
         var tableIns = table.render({
             elem: "#loginfoTable",
             title: "日志数据表格",
-            url: "/loginfo/loadAllLoginfo",
+            url: "loginfo/loadAllLoginfo",
             toolbar: "#loginfoToolBar",
             page: true,
             height: "full-190",
@@ -162,7 +162,7 @@
         //删除
         function deleteInfo(data) {
             layer.confirm('你确定要删除这条数据吗？',{icon: 3,title:'提示'},function (index) {
-                $.post("/loginfo/deleteLoginfo",{id:data.id},function (res) {
+                $.post("loginfo/deleteLoginfo",{id:data.id},function (res) {
                     if (res.code==200){
                         tableIns.reload({
                             where:"",
@@ -191,7 +191,7 @@
                             ids+="&ids="+item.id;
                         }
                     });
-                    $.post("/loginfo/batchDeleteLoginfo",ids,function (res) {
+                    $.post("loginfo/batchDeleteLoginfo",ids,function (res) {
                         if (res.code==200){
                             //重新刷新表格
                             tableIns.reload({
