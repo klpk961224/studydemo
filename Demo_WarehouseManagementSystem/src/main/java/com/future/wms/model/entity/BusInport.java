@@ -2,14 +2,15 @@ package com.future.wms.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
+import java.util.Date;
+
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author evanliu-
@@ -19,14 +20,14 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class BusInport implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -3097205265481812825L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     private String paytype;
 
-    private LocalDateTime inporttime;
+    private Date inporttime;
 
     private String operateperson;
 

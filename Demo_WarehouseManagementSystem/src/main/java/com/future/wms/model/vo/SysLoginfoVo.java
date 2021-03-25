@@ -15,6 +15,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 public class SysLoginfoVo extends SysLoginfo {
 
+    private static final long serialVersionUID = -8041975909928521553L;
     private Integer page = 1;
     private Integer limit = 10;
 

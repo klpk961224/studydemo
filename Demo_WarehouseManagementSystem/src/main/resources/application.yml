@@ -58,15 +58,21 @@ shiro:
   hash-iterations: 2
   anon-urls:
     - /index.html*
-    - /sys/toLogin*
-    - /wms/sys/toLogin*
+    - /toLogin*
     - /login/login*
     - /login/getCode
     - /resources/**
+    - /test/**
   login-url: /index.html
   log-out-url: /login/logout*
   authc-ulrs:
     - /**
+
+#日志输出
+logging:
+  level:
+    root: info
+    com.future.wms: debug
 
 
 

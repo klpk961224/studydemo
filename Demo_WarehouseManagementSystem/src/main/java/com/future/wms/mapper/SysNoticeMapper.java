@@ -1,7 +1,8 @@
 package com.future.wms.mapper;
 
-import com.future.wms.model.entity.SysNotice;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.future.wms.model.entity.SysNotice;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author evanliu-
  * @since 2021-03-24
  */
+@Repository
 public interface SysNoticeMapper extends BaseMapper<SysNotice> {
 
 }

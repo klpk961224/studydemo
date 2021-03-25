@@ -1,10 +1,17 @@
 package com.future.wms.service.impl;
 
-import com.future.wms.model.entity.SysUser;
-import com.future.wms.mapper.SysUserMapper;
-import com.future.wms.service.ISysUserService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.future.wms.mapper.SysRoleMapper;
+import com.future.wms.mapper.SysUserMapper;
+import com.future.wms.model.entity.SysUser;
+import com.future.wms.service.ISysUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -15,6 +22,70 @@ import org.springframework.stereotype.Service;
  * @since 2021-03-24
  */
 @Service
+@Transactional
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
+
+    @Autowired
+    private SysRoleMapper roleMapper;
+
+    @Autowired
+    private SysUserMapper userMapper;
+
+    @Override
+    public boolean save(SysUser entity) {
+        return super.save(entity);
+    }
+
+    @Override
+    public boolean updateById(SysUser entity) {
+        return super.updateById(entity);
+    }
+
+    @Override
+    public SysUser getById(Serializable id) {
+        return super.getById(id);
+    }
+
+    @Override
+    public boolean removeById(Serializable id) {
+        //根据用户id删除用户角色中间表的数据
+        roleMapper.deleteRoleUserByUid(id);
+        //删除用户头像[如果是默认头像不删除，否则删除]
+
+        return super.removeById(id);
+    }
+
+    /**
+     * 保存用户和角色的关系
+     * @param uid 用户的ID
+     * @param ids 用户拥有的角色的ID的数组
+     */
+    @Override
+    public void saveUserRole(Integer uid, Integer[] ids) {
+        //1.根据用户ID删除sys_user_role里面的数据
+        roleMapper.deleteRoleUserByUid(uid);
+        if (null != ids && ids.length > 0) {
+            for (Integer rid : ids) {
+                roleMapper.insertUserRole(uid, rid);
+            }
+        }
+    }
+
+    /**
+     * 查询当前用户是否是其他用户的直属领导
+     * @param userId        当前用户ID
+     * @return true:是  false:否
+     */
+    @Override
+    public Boolean queryMgrByUserId(Integer userId) {
+        QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("mgr", userId);
+        List<SysUser> users = userMapper.selectList(queryWrapper);
+        if (null != users && users.size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

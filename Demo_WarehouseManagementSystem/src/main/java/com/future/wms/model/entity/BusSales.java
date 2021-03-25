@@ -1,16 +1,17 @@
 package com.future.wms.model.entity;
 
-import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
+
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author evanliu-
@@ -20,7 +21,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class BusSales implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -7124470684767147454L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
@@ -29,7 +30,7 @@ public class BusSales implements Serializable {
 
     private String paytype;
 
-    private LocalDateTime salestime;
+    private Date salestime;
 
     private String operateperson;
 

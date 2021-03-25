@@ -20,7 +20,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 public class SysLoginfo implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 7413390409699099460L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;

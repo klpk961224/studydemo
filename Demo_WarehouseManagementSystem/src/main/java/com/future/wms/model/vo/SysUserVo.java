@@ -12,6 +12,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class SysUserVo extends SysUser {
 
+    private static final long serialVersionUID = 28579006257406962L;
     private Integer page = 1;
     private Integer limit = 10;
 

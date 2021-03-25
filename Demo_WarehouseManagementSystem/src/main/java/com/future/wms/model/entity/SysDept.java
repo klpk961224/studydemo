@@ -2,14 +2,15 @@ package com.future.wms.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
+import java.util.Date;
+
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author evanliu-
@@ -19,7 +20,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class SysDept implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -461152943668084710L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
@@ -44,7 +45,7 @@ public class SysDept implements Serializable {
      */
     private Integer ordernum;
 
-    private LocalDateTime createtime;
+    private Date createtime;
 
 
 }
