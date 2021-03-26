@@ -23,7 +23,7 @@
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 15px;">
     <legend>搜索条件</legend>
 </fieldset>
-<form action="" method="post" id="searchFrm" lay-filter="searchFrm" class="layui-form">
+<form action="" method="post" id="searchForm" lay-filter="searchForm" class="layui-form">
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">登陆名称</label>
@@ -53,6 +53,7 @@
             </div>
         </div>
     </div>
+
     <div class="layui-form-item">
         <div class="layui-input-block" style="text-align: center;padding-right: 15%;">
             <button type="button" class="layui-btn layui-btn-sm layui-btn-radius" lay-submit="" lay-filter="doSearch"><i
@@ -63,18 +64,21 @@
             </button>
         </div>
     </div>
+
 </form>
 
 <!--数据表格-->
 <div>
     <table class="layui-hide" id="loginfoTable" lay-filter="loginfoTable"></table>
     <div id="loginfoToolBar" style="display: none">
-        <button type="button" lay-event="batchDelete" shiro:hasPermission="info:batchdelete" class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius">
+        <button type="button" lay-event="batchDelete" shiro:hasPermission="info:batchdelete"
+                class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius">
             <i class="layui-icon layui-icon-delete"></i>批量删除
         </button>
     </div>
     <div id="loginfoRowBar" style="display: none;">
-        <button type="button" lay-event="delete" shiro:hasPermission="info:delete" class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius"><i
+        <button type="button" lay-event="delete" shiro:hasPermission="info:delete"
+                class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius"><i
                 class="layui-icon layui-icon-delete"></i>删除
         </button>
     </div>
@@ -108,20 +112,22 @@
             toolbar: "#loginfoToolBar",
             page: true,
             height: "full-190",
-            cols: [ [
-                {type: 'checkbox', fixed: 'left'},
-                {field: 'id', title: 'ID', align: 'center'},
-                {field: 'loginname', title: '登陆用户名', align: 'center'},
-                {field: 'loginip', title: '登陆IP', align: 'center'},
-                {field: 'logintime', title: '登陆时间', align: 'center'},
-                {fixed: 'right', title: '操作', toolbar: '#loginfoRowBar', align: 'center'}
-            ] ],
-            done:function (data, curr, count) {
+            cols: [
+                [
+                    {type: 'checkbox', fixed: 'left'},
+                    {field: 'id', title: 'ID', align: 'center', sort: true},
+                    {field: 'loginname', title: '登陆用户名', align: 'center'},
+                    {field: 'loginip', title: '登陆IP', align: 'center'},
+                    {field: 'logintime', title: '登陆时间', align: 'center', sort: true},
+                    {fixed: 'right', title: '操作', toolbar: '#loginfoRowBar', align: 'center'}
+                ]
+            ],
+            done: function (data, curr, count) {
                 //不是第一页时，如果当前返回的数据为0那么就返回上一页
-                if(data.data.length==0&&curr!=1){
+                if (data.data.length == 0 && curr != 1) {
                     tableIns.reload({
-                        page:{
-                            curr:curr-1
+                        page: {
+                            curr: curr - 1
                         }
                     })
                 }
@@ -144,28 +150,30 @@
             switch (obj.event) {
                 case 'batchDelete':
                     batchDelete();
-                break;
-            };
+                    break;
+            }
+            ;
         });
 
         //监控行工具条事件
-        table.on("tool(loginfoTable)",function (obj) {
+        table.on("tool(loginfoTable)", function (obj) {
             //获取当前行数据
             var data = obj.data;
-            switch (obj.event){
+            switch (obj.event) {
                 case 'delete':
                     deleteInfo(data);
-                break;
-            };
+                    break;
+            }
+            ;
         });
 
         //删除
         function deleteInfo(data) {
-            layer.confirm('你确定要删除这条数据吗？',{icon: 3,title:'提示'},function (index) {
-                $.post("loginfo/deleteLoginfo",{id:data.id},function (res) {
-                    if (res.code==200){
+            layer.confirm('你确定要删除这条数据吗？', {icon: 3, title: '提示'}, function (index) {
+                $.post("loginfo/deleteLoginfo", {id: data.id}, function (res) {
+                    if (res.code == 200) {
                         tableIns.reload({
-                            where:"",
+                            where: "",
                         });
                     }
                     layer.msg(res.msg);
@@ -179,31 +187,31 @@
             //得到选中行
             var checkStatus = table.checkStatus('loginfoTable');
             var dataLength = checkStatus.data.length;
-            if (dataLength>0){
-                layer.confirm('你确定要删除这些数据吗？',{icon: 3,title: '提示'},function (index) {
+            if (dataLength > 0) {
+                layer.confirm('你确定要删除这些数据吗？', {icon: 3, title: '提示'}, function (index) {
                     //获取选中行数据
                     var data = checkStatus.data;
                     var ids = "";
-                    $.each(data,function (index, item) {
-                        if (index==0){
-                            ids+="ids="+item.id;
-                        }else {
-                            ids+="&ids="+item.id;
+                    $.each(data, function (index, item) {
+                        if (index == 0) {
+                            ids += "ids=" + item.id;
+                        } else {
+                            ids += "&ids=" + item.id;
                         }
                     });
-                    $.post("loginfo/batchDeleteLoginfo",ids,function (res) {
-                        if (res.code==200){
+                    $.post("loginfo/batchDeleteLoginfo", ids, function (res) {
+                        if (res.code == 200) {
                             //重新刷新表格
                             tableIns.reload({
-                                where:"",
+                                where: "",
                             });
                         }
                         layer.msg(res.msg);
                     });
                     layer.close(index);
                 });
-            }else {
-                layer.msg("请选中操作行")
+            } else {
+                layer.msg("请选中操作行");
             }
         }
 

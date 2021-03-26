@@ -47,7 +47,7 @@ public class SysLoginfoController {
         queryWrapper.le(loginfoVo.getEndTime() != null, "logintime", loginfoVo.getEndTime());
         //根据登陆时间进行降序排序
         queryWrapper.orderByDesc("logintime");
-        sysLoginfoService.page(page, queryWrapper);
+        this.sysLoginfoService.page(page, queryWrapper);
         return new DataGridView(page.getTotal(), page.getRecords());
     }
 
@@ -61,7 +61,7 @@ public class SysLoginfoController {
     @RequestMapping("deleteLoginfo")
     public ResultObj deleteLoginfo(Integer id) {
         try {
-            sysLoginfoService.removeById(id);
+            this.sysLoginfoService.removeById(id);
             return ResultObj.DELETE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,7 +79,7 @@ public class SysLoginfoController {
     @RequestMapping("batchDeleteLoginfo")
     public ResultObj batchDeleteLoginfo(LoginfoVo loginfoVo) {
         try {
-            Collection<Serializable> idList = new ArrayList<Serializable>();
+            Collection<Serializable> idList = new ArrayList<>();
             for (Integer id : loginfoVo.getIds()) {
                 idList.add(id);
             }
