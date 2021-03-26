@@ -11,10 +11,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="icon" href="/resources/favicon.ico">
-    <link rel="stylesheet" href="resources/layui/css/layui.css" th:href="@{/resources/layui/css/layui.css}"
+    <link rel="icon" href="resources/favicon.ico">
+    <link rel="stylesheet" href="resources/layui/css/layui.css" th:href="@{resources/layui/css/layui.css}"
           media="all"/>
-    <link rel="stylesheet" href="resources/css/public.css" th:href="@{/resources/css/public.css}" media="all"/>
+    <link rel="stylesheet" href="resources/css/public.css" th:href="@{resources/css/public.css}" media="all"/>
 </head>
 <body class="childrenBody">
 <!--查询条件-->
@@ -26,22 +26,25 @@
 <div>
     <table class="layui-hide" id="cacheTable" lay-filter="cacheTable"></table>
     <div id="cacheToolBar" style="display: none">
-        <button type="button" lay-event="syncCache" shiro:hasPermission="cache:syncCache" class="layui-btn layui-btn-sm layui-btn-normal layui-btn-radius">
+        <button type="button" lay-event="syncCache" shiro:hasPermission="cache:syncCache"
+                class="layui-btn layui-btn-sm layui-btn-normal layui-btn-radius">
             <i class="layui-icon layui-icon-add-1"></i>同步缓存
         </button>
-        <button type="button" lay-event="removeAllCache" shiro:hasPermission="cache:removeAllCache" class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius">
+        <button type="button" lay-event="removeAllCache" shiro:hasPermission="cache:removeAllCache"
+                class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius">
             <i class="layui-icon layui-icon-delete"></i>清空缓存
         </button>
     </div>
     <div id="cacheRowBar" style="display: none;">
-        <button type="button" lay-event="delete" shiro:hasPermission="cache:delete" class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius"><i
+        <button type="button" lay-event="delete" shiro:hasPermission="cache:delete"
+                class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius"><i
                 class="layui-icon layui-icon-delete"></i>删除
         </button>
     </div>
 </div>
 
 
-<script type="text/javascript" src="/resources/layui/layui.js"></script>
+<script type="text/javascript" src="resources/layui/layui.js"></script>
 
 <script type="text/javascript">
     layui.use(['jquery', 'form', 'layer', 'table'], function () {
@@ -54,14 +57,16 @@
         var tableIns = table.render({
             elem: "#cacheTable",
             title: "缓存数据表格",
-            url: "/cache/loadAllCache",
+            url: "cache/loadAllCache",
             toolbar: "#cacheToolBar",
             page: true,
-            cols: [ [
-                {field: 'key', title: '键', align: 'center',width:'100'},
-                {field: 'value', title: '值', align: 'center',width:'1100'},
-                {fixed: 'right', title: '操作', toolbar: '#cacheRowBar', align: 'center',width:'100'}
-            ] ]
+            cols: [
+                [
+                    {field: 'key', title: '键', align: 'center', width: '100'},
+                    {field: 'value', title: '值', align: 'center', width: '1100'},
+                    {fixed: 'right', title: '操作', toolbar: '#cacheRowBar', align: 'center', width: '100'}
+                ]
+            ]
         });
 
 
@@ -70,29 +75,31 @@
             switch (obj.event) {
                 case 'removeAllCache':
                     removeAllCache();
-                break;
+                    break;
                 case 'syncCache':
                     syncCache();
-                break;
-            };
+                    break;
+            }
+            ;
         });
 
         //监控行工具条事件
-        table.on("tool(cacheTable)",function (obj) {
+        table.on("tool(cacheTable)", function (obj) {
             //获取当前行数据
             var data = obj.data;
-            switch (obj.event){
+            switch (obj.event) {
                 case 'delete':
                     deleteCache(data);
-                break;
-            };
+                    break;
+            }
+            ;
         });
 
         //清除所有缓存
         function removeAllCache() {
-            layer.confirm('你确定要清空所有缓存数据吗？',{icon: 3,title:'提示'},function (index) {
-                $.post("/cache/removeAllCache",function (res) {
-                    if (res.code==200){
+            layer.confirm('你确定要清空所有缓存数据吗？', {icon: 3, title: '提示'}, function (index) {
+                $.post("cache/removeAllCache", function (res) {
+                    if (res.code == 200) {
                         tableIns.reload();
                     }
                     layer.msg(res.msg);
@@ -102,9 +109,9 @@
 
         //同步缓存
         function syncCache() {
-            layer.confirm('你确定要同步缓存数据吗？',{icon: 3,title:'提示'},function (index) {
-                $.post("/cache/syncCache",function (res) {
-                    if (res.code==200){
+            layer.confirm('你确定要同步缓存数据吗？', {icon: 3, title: '提示'}, function (index) {
+                $.post("cache/syncCache", function (res) {
+                    if (res.code == 200) {
                         tableIns.reload();
                     }
                     layer.msg(res.msg);
@@ -114,11 +121,11 @@
 
         //删除
         function deleteCache(data) {
-            layer.confirm('你确定要删除【'+data.key+'】这条缓存吗？',{icon: 3,title:'提示'},function (index) {
-                $.post("/cache/deleteCache",{key:data.key},function (res) {
-                    if (res.code==200){
+            layer.confirm('你确定要删除【' + data.key + '】这条缓存吗？', {icon: 3, title: '提示'}, function (index) {
+                $.post("cache/deleteCache", {key: data.key}, function (res) {
+                    if (res.code == 200) {
                         tableIns.reload({
-                            where:"",
+                            where: "",
                         });
                     }
                     layer.msg(res.msg);
@@ -126,7 +133,6 @@
                 layer.close(index);
             });
         }
-
 
 
     });
