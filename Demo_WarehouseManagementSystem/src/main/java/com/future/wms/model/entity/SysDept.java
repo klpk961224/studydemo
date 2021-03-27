@@ -29,6 +29,9 @@ public class SysDept implements Serializable {
 
     private String name;
 
+    /**
+     * 是否展开，0不展开，1展开
+     */
     private Integer open;
 
     private String remark;
@@ -36,16 +39,14 @@ public class SysDept implements Serializable {
     private String address;
 
     /**
-     * 状态【0不可用1可用】
+     * 是否可用，0不可用，1可用
      */
     private Integer available;
 
     /**
-     * 排序码【为了调试显示顺序】
+     * 排序码
      */
     private Integer ordernum;
 
     private Date createtime;
-
-
 }
