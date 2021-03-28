@@ -11,11 +11,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="icon" href="/resources/favicon.ico">
-    <link rel="stylesheet" href="resources/layui/css/layui.css" th:href="@{/resources/layui/css/layui.css}" media="all"/>
-    <link rel="stylesheet" th:href="@{/resources/css/public.css}" media="all"/>
-    <link rel="stylesheet" th:href="@{/resources/layui_ext/dtree/dtree.css}" media="all"/>
-    <link rel="stylesheet" th:href="@{/resources/layui_ext/dtree/font/dtreefont.css}" media="all"/>
+    <link rel="icon" href="resources/favicon.ico">
+    <link rel="stylesheet" href="resources/layui/css/layui.css" th:href="@{resources/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{resources/css/public.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{resources/layui_ext/dtree/dtree.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{resources/layui_ext/dtree/font/dtreefont.css}" media="all"/>
 </head>
 <body>
 <!--查询条件-->
@@ -53,15 +53,18 @@
 <div>
     <table class="layui-hide" id="permissionTable" lay-filter="permissionTable"></table>
     <div id="permissionToolBar" style="display: none">
-        <button type="button" lay-event="add" shiro:hasPermission="permission:create" class="layui-btn layui-btn-sm layui-btn-normal layui-btn-radius">
+        <button type="button" lay-event="add" shiro:hasPermission="permission:create"
+                class="layui-btn layui-btn-sm layui-btn-normal layui-btn-radius">
             <i class="layui-icon layui-icon-add-1"></i>添加权限
         </button>
     </div>
     <div id="permissionRowBar" style="display: none;">
-        <button type="button" lay-event="update" shiro:hasPermission="permission:update" class="layui-btn layui-btn-sm layui-btn-radius"><i
+        <button type="button" lay-event="update" shiro:hasPermission="permission:update"
+                class="layui-btn layui-btn-sm layui-btn-radius"><i
                 class="layui-icon layui-icon-edit"></i>编辑
         </button>
-        <button type="button" lay-event="delete" shiro:hasPermission="permission:delete" class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius"><i
+        <button type="button" lay-event="delete" shiro:hasPermission="permission:delete"
+                class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius"><i
                 class="layui-icon layui-icon-delete"></i>删除
         </button>
     </div>
@@ -89,7 +92,8 @@
             <div class="layui-inline">
                 <label class="layui-form-label">权限编码</label>
                 <div class="layui-input-block">
-                    <input type="text" name="percode" autocomplete="off" class="layui-input input-radius" placeholder="请输入权限编码">
+                    <input type="text" name="percode" autocomplete="off" class="layui-input input-radius"
+                           placeholder="请输入权限编码">
                 </div>
             </div>
         </div>
@@ -113,13 +117,15 @@
             <div class="layui-inline">
                 <label class="layui-form-label">排序码</label>
                 <div class="layui-input-block">
-                    <input type="text" id="ordernum" name="ordernum" lay-verify="required" autocomplete="off" class="layui-input input-radius" placeholder="请输入权限排序码[>0]">
+                    <input type="text" id="ordernum" name="ordernum" lay-verify="required" autocomplete="off"
+                           class="layui-input input-radius" placeholder="请输入权限排序码[>0]">
                 </div>
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block" style="text-align: center;padding-right: 7%">
-                <button type="button" class="layui-btn layui-btn-radius" lay-submit="" lay-filter="doSubmit" id="doSubmit"><i
+                <button type="button" class="layui-btn layui-btn-radius" lay-submit="" lay-filter="doSubmit"
+                        id="doSubmit"><i
                         class="layui-icon layui-icon-search layui-icon-normal"></i>提交
                 </button>
                 <button type="reset" class="layui-btn layui-btn-radius layui-btn-warm"><i
@@ -130,7 +136,7 @@
     </form>
 </div>
 
-<script type="text/javascript" src="/resources/layui/layui.js"></script>
+<script type="text/javascript" src="resources/layui/layui.js"></script>
 
 <script type="text/javascript">
 
@@ -138,8 +144,8 @@
     var tableIns;
 
     layui.extend({
-        dtree: '/resources/layui_ext/dtree/dtree'
-    }).use(['jquery', 'form', 'layer', 'laydate', 'table', 'layedit','dtree'], function () {
+        dtree: 'resources/layui_ext/dtree/dtree'
+    }).use(['jquery', 'form', 'layer', 'laydate', 'table', 'layedit', 'dtree'], function () {
         var $ = layui.jquery;
         var form = layui.form;
         var layer = layui.layer;
@@ -150,24 +156,30 @@
         tableIns = table.render({
             elem: "#permissionTable",
             title: "权限数据表格",
-            url: "/permission/loadAllPermission",
+            url: "permission/loadAllPermission",
             toolbar: "#permissionToolBar",
             page: true,
             height: "full-130",
-            cols: [ [
-                {field: 'id', title: 'ID', align: 'center',width:'80'},
-                {field: 'pid', title: '父级权限ID', align: 'center',width:'100'},
-                {field: 'title', title: '权限名称', align: 'center',width:'150'},
-                {field: 'percode', title: '权限编码', align: 'center',width:'230'},
-                {field: 'available', title: '是否可用', align: 'center',width:'100',templet:function (d) {
-                    return d.available==1?'<font color="blue">可用</font>':'<font color="red">不可用</font>';
-                }},
-                {field: 'open', title: '是否展开', align: 'center',width:'100',templet:function (d) {
-                    return d.open==1?'<font color="blue">展开</font>':'<font color="red">不展开</font>';
-                }},
-                {field: 'ordernum', title: '排序码', align: 'center',width:'100'},
-                {fixed: 'right', title: '操作', toolbar: '#permissionRowBar', align: 'center',width:'220'}
-            ] ],
+            cols: [
+                [
+                    {field: 'id', title: 'ID', align: 'center', width: '80'},
+                    {field: 'pid', title: '父级权限ID', align: 'center', width: '100'},
+                    {field: 'title', title: '权限名称', align: 'center', width: '150'},
+                    {field: 'percode', title: '权限编码', align: 'center', width: '230'},
+                    {
+                        field: 'available', title: '是否可用', align: 'center', width: '100', templet: function (d) {
+                            return d.available == 1 ? '<font color="blue">可用</font>' : '<font color="red">不可用</font>';
+                        }
+                    },
+                    {
+                        field: 'open', title: '是否展开', align: 'center', width: '100', templet: function (d) {
+                            return d.open == 1 ? '<font color="blue">展开</font>' : '<font color="red">不展开</font>';
+                        }
+                    },
+                    {field: 'ordernum', title: '排序码', align: 'center', width: '100'},
+                    {fixed: 'right', title: '操作', toolbar: '#permissionRowBar', align: 'center', width: '220'}
+                ]
+            ],
             done: function (data, curr, count) {
                 //不是第一页时，如果当前返回的数据为0那么就返回上一页
                 if (data.data.length == 0 && curr != 1) {
@@ -197,7 +209,8 @@
                 case 'add':
                     openAddLayer();
                     break;
-            };
+            }
+            ;
         });
 
         //监控行工具条事件
@@ -211,7 +224,8 @@
                 case 'update':
                     updatePermission(data);
                     break;
-            };
+            }
+            ;
         });
 
         var mainIndex;
@@ -220,17 +234,17 @@
         //打开添加弹出层
         function openAddLayer() {
             mainIndex = layer.open({
-                type:1,
-                content:$("#addOrUpdateDiv"),
-                area:['670px','400px'],
-                title:'添加权限',
-                success:function () {
+                type: 1,
+                content: $("#addOrUpdateDiv"),
+                area: ['670px', '400px'],
+                title: '添加权限',
+                success: function () {
                     $("#dataFrm")[0].reset();
                     //设置下拉树中父节点的值为空
                     $("#pid").val("");
-                    url="/permission/addPermission";
+                    url = "permission/addPermission";
                     //初始化排序码
-                    $.get("/permission/loadPermissionMaxOrderNum",function (res) {
+                    $.get("permission/loadPermissionMaxOrderNum", function (res) {
                         $("#ordernum").val(res.value);
                     });
                     //设置下拉树的value值为空
@@ -242,26 +256,26 @@
         //打开修改的弹出层
         function updatePermission(data) {
             mainIndex = layer.open({
-                type:1,
-                content:$("#addOrUpdateDiv"),
-                area:['670px','400px'],
-                title:'修改权限',
-                success:function () {
+                type: 1,
+                content: $("#addOrUpdateDiv"),
+                area: ['670px', '400px'],
+                title: '修改权限',
+                success: function () {
                     //清空原有的数据
                     $("#dataFrm")[0].reset();
                     //装载新的数据
-                    form.val("dataFrm",data);
+                    form.val("dataFrm", data);
                     //选中之前的父级权限  nodeId=data.pid
-                    dtree.dataInit("permissionTree",data.pid);
+                    dtree.dataInit("permissionTree", data.pid);
                     dtree.selectVal("permissionTree");
-                    url="/permission/updatePermission";
+                    url = "permission/updatePermission";
                 }
             });
         }
 
-        form.on("submit(doSubmit)",function (data) {
-            $.post(url,data.field,function (res) {
-                if (res.code==200){
+        form.on("submit(doSubmit)", function (data) {
+            $.post(url, data.field, function (res) {
+                if (res.code == 200) {
                     tableIns.reload();
                 }
                 layer.msg(res.msg);
@@ -273,11 +287,14 @@
 
         //删除
         function deletePermission(data) {
-            layer.confirm('你确定要删除【' + data.title + '】这个权限吗？如果该权限被删除，那个拥有该权限的角色也将失去该权限！', {icon: 3, title: '提示'}, function (index) {
-                $.post("/permission/deletePermission", {id: data.id},function (res) {
+            layer.confirm('你确定要删除【' + data.title + '】这个权限吗？如果该权限被删除，那个拥有该权限的角色也将失去该权限！', {
+                icon: 3,
+                title: '提示'
+            }, function (index) {
+                $.post("permission/deletePermission", {id: data.id}, function (res) {
                     if (res.code == 200) {
                         tableIns.reload({
-                            where:"",
+                            where: "",
                         });
                     }
                     layer.msg(res.msg);
@@ -292,12 +309,12 @@
             width: "100%", // 可以在这里指定树的宽度来填满div
             dataStyle: "layuiStyle", //使用layui风格的数据格式
             dataFormat: "list",     //配置data的风格为list
-            response:{message:"msg",statusCode:0},  //修改response中返回数据的定义
-            url: "/permission/loadPermissionManagerLeftTreeJson" // 使用url加载（可与data加载同时存在）
+            response: {message: "msg", statusCode: 0},  //修改response中返回数据的定义
+            url: "permission/loadPermissionManagerLeftTreeJson" // 使用url加载（可与data加载同时存在）
         });
 
         //监听点击的方法
-        dtree.on("node(permissionTree)",function (obj) {
+        dtree.on("node(permissionTree)", function (obj) {
             $("#pid").val(obj.param.nodeId);
             console.log(obj.param.nodeId);
         })
@@ -308,11 +325,11 @@
     //给其它页面刷新当前页面数据表格的方法
     function reloadTable(id) {
         tableIns.reload({
-            where:{
-                id:id
+            where: {
+                id: id
             },
-            page:{
-                curr:1
+            page: {
+                curr: 1
             }
         });
     }

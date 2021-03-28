@@ -41,7 +41,7 @@ public class SysNoticeController {
      * @param noticeVo
      * @return
      */
-    @RequestMapping("loadAllNotice")
+    @RequestMapping("/loadAllNotice")
     public DataGridView loadAllNotice(SysNoticeVo noticeVo) {
         IPage<SysNotice> page = new Page<SysNotice>(noticeVo.getPage(), noticeVo.getLimit());
         QueryWrapper<SysNotice> queryWrapper = new QueryWrapper<SysNotice>();
@@ -62,7 +62,7 @@ public class SysNoticeController {
      * @param id    公告ID
      * @return
      */
-    @RequestMapping("loadNoticeById")
+    @RequestMapping("/loadNoticeById")
     public DataGridView loadNoticeById(Integer id) {
         SysNotice notice = this.sysNoticeService.getById(id);
         return new DataGridView(notice);
@@ -73,7 +73,7 @@ public class SysNoticeController {
      * @param noticeVo
      * @return
      */
-    @RequestMapping("addNotice")
+    @RequestMapping("/addNotice")
     public ResultObj addNotice(SysNoticeVo noticeVo) {
         try {
             noticeVo.setCreatetime(new Date());
@@ -92,7 +92,7 @@ public class SysNoticeController {
      * @param noticeVo
      * @return
      */
-    @RequestMapping("updateNotice")
+    @RequestMapping("/updateNotice")
     public ResultObj updateNotice(SysNoticeVo noticeVo) {
         try {
             this.sysNoticeService.updateById(noticeVo);
@@ -108,7 +108,7 @@ public class SysNoticeController {
      * @param noticeVo
      * @return
      */
-    @RequestMapping("deleteNotice")
+    @RequestMapping("/deleteNotice")
     public ResultObj deleteNotice(SysNoticeVo noticeVo) {
         try {
             this.sysNoticeService.removeById(noticeVo);
@@ -124,7 +124,7 @@ public class SysNoticeController {
      * @param noticeVo
      * @return
      */
-    @RequestMapping("batchDeleteNotice")
+    @RequestMapping("/batchDeleteNotice")
     public ResultObj batchDeleteNotice(SysNoticeVo noticeVo) {
         try {
             Collection<Serializable> idList = new ArrayList<>();

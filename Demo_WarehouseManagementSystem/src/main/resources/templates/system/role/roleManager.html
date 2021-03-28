@@ -11,11 +11,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="icon" href="/resources/favicon.ico">
-    <link rel="stylesheet" href="resources/layui/css/layui.css" th:href="@{/resources/layui/css/layui.css}" media="all"/>
-    <link rel="stylesheet" href="resources/css/public.css" th:href="@{/resources/css/public.css}" media="all"/>
-    <link rel="stylesheet" th:href="@{/resources/layui_ext/dtree/dtree.css}" media="all"/>
-    <link rel="stylesheet" th:href="@{/resources/layui_ext/dtree/font/dtreefont.css}" media="all"/>
+    <link rel="icon" href="resources/favicon.ico">
+    <link rel="stylesheet" href="resources/layui/css/layui.css" th:href="@{resources/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" href="resources/css/public.css" th:href="@{resources/css/public.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{resources/layui_ext/dtree/dtree.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{resources/layui_ext/dtree/font/dtreefont.css}" media="all"/>
 </head>
 <body class="childrenBody">
 <!--查询条件-->
@@ -75,18 +75,22 @@
 <div>
     <table class="layui-hide" id="roleTable" lay-filter="roleTable"></table>
     <div id="roleToolBar" style="display: none">
-        <button type="button" lay-event="add" shiro:hasPermission="role:create" class="layui-btn layui-btn-sm layui-btn-normal layui-btn-radius">
+        <button type="button" lay-event="add" shiro:hasPermission="role:create"
+                class="layui-btn layui-btn-sm layui-btn-normal layui-btn-radius">
             <i class="layui-icon layui-icon-add-1"></i>添加
         </button>
     </div>
     <div id="roleRowBar" style="display: none;">
-        <button type="button" lay-event="update" shiro:hasPermission="role:update" class="layui-btn layui-btn-sm layui-btn-radius"><i
+        <button type="button" lay-event="update" shiro:hasPermission="role:update"
+                class="layui-btn layui-btn-sm layui-btn-radius"><i
                 class="layui-icon layui-icon-edit"></i>编辑
         </button>
-        <button type="button" lay-event="delete" shiro:hasPermission="role:delete" class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius"><i
+        <button type="button" lay-event="delete" shiro:hasPermission="role:delete"
+                class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius"><i
                 class="layui-icon layui-icon-delete"></i>删除
         </button>
-        <button type="button" lay-event="selectPermission" shiro:hasPermission="role:selectPermission" class="layui-btn layui-btn-sm layui-btn-warm layui-btn-radius"><i
+        <button type="button" lay-event="selectPermission" shiro:hasPermission="role:selectPermission"
+                class="layui-btn layui-btn-sm layui-btn-warm layui-btn-radius"><i
                 class="layui-icon layui-icon-auz"></i>分配权限
         </button>
     </div>
@@ -122,7 +126,8 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block" style="text-align: center;padding-right: 7%">
-                <button type="button" class="layui-btn layui-btn-radius" lay-submit="" lay-filter="doSubmit" id="doSubmit"><i
+                <button type="button" class="layui-btn layui-btn-radius" lay-submit="" lay-filter="doSubmit"
+                        id="doSubmit"><i
                         class="layui-icon layui-icon-search layui-icon-normal"></i>提交
                 </button>
                 <button type="reset" class="layui-btn layui-btn-radius layui-btn-warm"><i
@@ -137,12 +142,12 @@
     <ul id="permissionTree" class="dtree" data-id="0"></ul>
 </div>
 
-<script type="text/javascript" src="/resources/layui/layui.js"></script>
+<script type="text/javascript" src="resources/layui/layui.js"></script>
 
 <script type="text/javascript">
     layui.extend({
-        dtree: '/resources/layui_ext/dtree/dtree'
-    }).use(['jquery', 'form', 'layer', 'laydate', 'table','dtree'], function () {
+        dtree: 'resources/layui_ext/dtree/dtree'
+    }).use(['jquery', 'form', 'layer', 'laydate', 'table', 'dtree'], function () {
         var $ = layui.jquery;
         var form = layui.form;
         var layer = layui.layer;
@@ -163,26 +168,30 @@
         var tableIns = table.render({
             elem: "#roleTable",
             title: "角色数据表格",
-            url: "/role/loadAllRole",
+            url: "role/loadAllRole",
             toolbar: "#roleToolBar",
             page: true,
             height: "full-190",
-            cols: [ [
-                {field: 'id', title: 'ID', align: 'center'},
-                {field: 'name', title: '角色名称', align: 'center'},
-                {field: 'remark', title: '角色备注', align: 'center'},
-                {field: 'available', title: '是否可用', align: 'center',templet:function (d) {
-                    return d.available==1?'<font color="blue">可用</font>':'<font color="red">不可用</font>';
-                }},
-                {field: 'createtime', title: '创建时间', align: 'center'},
-                {fixed: 'right', title: '操作', toolbar: '#roleRowBar', align: 'center',width:280}
-            ] ],
-            done:function (data, curr, count) {
+            cols: [
+                [
+                    {field: 'id', title: 'ID', align: 'center'},
+                    {field: 'name', title: '角色名称', align: 'center'},
+                    {field: 'remark', title: '角色备注', align: 'center'},
+                    {
+                        field: 'available', title: '是否可用', align: 'center', templet: function (d) {
+                            return d.available == 1 ? '<font color="blue">可用</font>' : '<font color="red">不可用</font>';
+                        }
+                    },
+                    {field: 'createtime', title: '创建时间', align: 'center'},
+                    {fixed: 'right', title: '操作', toolbar: '#roleRowBar', align: 'center', width: 280}
+                ]
+            ],
+            done: function (data, curr, count) {
                 //不是第一页时，如果当前返回的数据为0那么就返回上一页
-                if(data.data.length==0&&curr!=1){
+                if (data.data.length == 0 && curr != 1) {
                     tableIns.reload({
-                        page:{
-                            curr:curr-1
+                        page: {
+                            curr: curr - 1
                         }
                     })
                 }
@@ -199,7 +208,7 @@
             var params = $("#searchFrm").serialize();
             tableIns.reload({
 //                where: data.field,
-                url:"/role/loadAllRole?"+params,
+                url: "role/loadAllRole?" + params,
                 page: {
                     curr: 1
                 }
@@ -212,25 +221,27 @@
             switch (obj.event) {
                 case 'add':
                     openAddLayer();
-                break;
-            };
+                    break;
+            }
+            ;
         });
 
         //监控行工具条事件
-        table.on("tool(roleTable)",function (obj) {
+        table.on("tool(roleTable)", function (obj) {
             //获取当前行数据
             var data = obj.data;
-            switch (obj.event){
+            switch (obj.event) {
                 case 'update':
                     updateRole(data);
                     break;
                 case 'delete':
                     deleteRole(data);
-                break;
+                    break;
                 case 'selectPermission':
                     selectPermission(data);
-                break;
-            };
+                    break;
+            }
+            ;
         });
 
         var mainIndex;
@@ -239,13 +250,13 @@
         //打开添加弹出层
         function openAddLayer() {
             mainIndex = layer.open({
-                type:1,
-                content:$("#addOrUpdateDiv"),
-                area:['800px','350px'],
-                title:'添加角色',
-                success:function () {
+                type: 1,
+                content: $("#addOrUpdateDiv"),
+                area: ['800px', '350px'],
+                title: '添加角色',
+                success: function () {
                     $("#dataFrm")[0].reset();
-                    url="/role/addRole";
+                    url = "role/addRole";
                 }
             });
         }
@@ -253,24 +264,24 @@
         //打开修改弹出层
         function updateRole(data) {
             mainIndex = layer.open({
-                type:1,
-                content:$("#addOrUpdateDiv"),
-                area:['800px','350px'],
-                title:'修改角色',
-                success:function () {
+                type: 1,
+                content: $("#addOrUpdateDiv"),
+                area: ['800px', '350px'],
+                title: '修改角色',
+                success: function () {
                     //清空原有的数据
                     $("#dataFrm")[0].reset();
                     //装载新的数据
-                    form.val("dataFrm",data);
-                    url="/role/updateRole";
+                    form.val("dataFrm", data);
+                    url = "role/updateRole";
                 }
             });
         }
 
         //提交按钮事件
-        form.on("submit(doSubmit)",function (data) {
-            $.post(url,data.field,function (res) {
-                if (res.code==200){
+        form.on("submit(doSubmit)", function (data) {
+            $.post(url, data.field, function (res) {
+                if (res.code == 200) {
                     tableIns.reload();
                 }
                 layer.msg(res.msg);
@@ -281,11 +292,14 @@
 
         //删除
         function deleteRole(data) {
-            layer.confirm('你确定要删除【'+data.name+'】这条数据吗？如果您删除该角色，那么所有拥有该角色的用户将没有角色，请重新给这些用户分配角色！',{icon: 3,title:'提示'},function (index) {
-                $.post("/role/deleteRole",{id:data.id},function (res) {
-                    if (res.code==200){
+            layer.confirm('你确定要删除【' + data.name + '】这条数据吗？如果您删除该角色，那么所有拥有该角色的用户将没有角色，请重新给这些用户分配角色！', {
+                icon: 3,
+                title: '提示'
+            }, function (index) {
+                $.post("role/deleteRole", {id: data.id}, function (res) {
+                    if (res.code == 200) {
                         tableIns.reload({
-                            where:"",
+                            where: "",
                         });
                     }
                     layer.msg(res.msg);
@@ -297,40 +311,40 @@
         //打开分配权限弹出层
         function selectPermission(data) {
             mainIndex = layer.open({
-                type:1,
-                content:$("#selectRolePermissionDiv"),
-                area:['400px','580px'],
-                title:'给【'+data.name+'】分配权限',
-                btn: ['<span class=layui-icon>&#xe605;确认分配</span>','<span class=layui-icon>&#x1006;取消分配</span>'],
-                btnAlign:'c',
-                yes: function(index, layero){
+                type: 1,
+                content: $("#selectRolePermissionDiv"),
+                area: ['400px', '580px'],
+                title: '给【' + data.name + '】分配权限',
+                btn: ['<span class=layui-icon>&#xe605;确认分配</span>', '<span class=layui-icon>&#x1006;取消分配</span>'],
+                btnAlign: 'c',
+                yes: function (index, layero) {
                     var permissionData = dtree.getCheckbarNodesParam("permissionTree");
-                    var params = "rid="+data.id;
+                    var params = "rid=" + data.id;
                     console.log(params);
-                    $.each(permissionData,function (index, item) {
-                        params+="&ids="+item.nodeId;
+                    $.each(permissionData, function (index, item) {
+                        params += "&ids=" + item.nodeId;
                     });
-                    $.post("/role/saveRolePermission",params,function (res) {
+                    $.post("role/saveRolePermission", params, function (res) {
                         layer.msg(res.msg);
                     });
                     layer.close(mainIndex);
                 },
-                btn2: function(index, layero){
+                btn2: function (index, layero) {
                     //关闭弹出层
                 },
-                success:function () {
+                success: function () {
                     //根据角色ID请求权限和菜单tree的json数据
                     dtree.render({
-                        elem:"#permissionTree",
-                        url:"/role/initPermissionByRoleId?roleId="+data.id,
+                        elem: "#permissionTree",
+                        url: "role/initPermissionByRoleId?roleId=" + data.id,
                         //使用layUI风格的数据格式
-                        dataStyle:"layuiStyle",
+                        dataStyle: "layuiStyle",
                         //配置data的风格为list
-                        dataFormat:"list",
+                        dataFormat: "list",
                         //修改response中返回数据的定义
-                        response:{message:"msg",statusCode:0},
-                        checkbar:true,
-                        checkbarType:"all"
+                        response: {message: "msg", statusCode: 0},
+                        checkbar: true,
+                        checkbarType: "all"
                     });
                 }
             });

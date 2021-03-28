@@ -336,7 +336,7 @@
         function deleteDept(data) {
             $.post("dept/checkDeptHasChildrenNode", {id: data.id}, function (resoult) {
                 if (resoult.value) {
-                    layer.msg("当前部门节点有子部门，请选择删除子部门！")
+                    layer.msg("当前部门节点有子部门，请先选择删除子部门！")
                 } else {
                     layer.confirm('你确定要删除【' + data.name + '】这个部门吗？', {icon: 3, title: '提示'}, function (index) {
                         $.post("dept/deleteDept", {id: data.id}, function (res) {

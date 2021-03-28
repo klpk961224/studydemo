@@ -1,9 +1,14 @@
 package com.future.wms.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -18,6 +23,9 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+@TableName("sys_user")
+@ToString
 public class SysUser implements Serializable {
 
     private static final long serialVersionUID = 3827332460058543663L;
@@ -39,6 +47,7 @@ public class SysUser implements Serializable {
 
     private Integer deptid;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date hiredate;
 
     /**
@@ -71,5 +80,16 @@ public class SysUser implements Serializable {
      */
     private String salt;
 
+    /**
+     * 领导名称
+     */
+    @TableField(exist = false)
+    private String leadername;
+
+    /**
+     * 部门名称
+     */
+    @TableField(exist = false)
+    private String deptname;
 
 }

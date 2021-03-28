@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.future.wms.common.DataGridView;
 import com.future.wms.common.ResultObj;
 import com.future.wms.model.entity.SysLoginfo;
-import com.future.wms.model.vo.LoginfoVo;
+import com.future.wms.model.vo.SysLoginfoVo;
 import com.future.wms.service.ISysLoginfoService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +35,8 @@ public class SysLoginfoController {
      * @param: loginfoVo ->
      * @return com.future.wms.common.DataGridView
      **/
-    @RequestMapping("loadAllLoginfo")
-    public DataGridView loadAllLoginfo(LoginfoVo loginfoVo) {
+    @RequestMapping("/loadAllLoginfo")
+    public DataGridView loadAllLoginfo(SysLoginfoVo loginfoVo) {
         IPage<SysLoginfo> page = new Page<SysLoginfo>(loginfoVo.getPage(), loginfoVo.getLimit());
         QueryWrapper<SysLoginfo> queryWrapper = new QueryWrapper<>();
         //进行模糊查询
@@ -58,7 +58,7 @@ public class SysLoginfoController {
      * @param: id ->
      * @return com.future.wms.common.ResultObj
      **/
-    @RequestMapping("deleteLoginfo")
+    @RequestMapping("/deleteLoginfo")
     public ResultObj deleteLoginfo(Integer id) {
         try {
             this.sysLoginfoService.removeById(id);
@@ -76,8 +76,8 @@ public class SysLoginfoController {
      * @param: loginfoVo ->
      * @return com.future.wms.common.ResultObj
      **/
-    @RequestMapping("batchDeleteLoginfo")
-    public ResultObj batchDeleteLoginfo(LoginfoVo loginfoVo) {
+    @RequestMapping("/batchDeleteLoginfo")
+    public ResultObj batchDeleteLoginfo(SysLoginfoVo loginfoVo) {
         try {
             Collection<Serializable> idList = new ArrayList<>();
             for (Integer id : loginfoVo.getIds()) {

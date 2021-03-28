@@ -44,7 +44,7 @@ public class SystemController {
      * 跳转到个人资料页面
      * @return
      */
-    @RequestMapping("toUserInfo")
+    @RequestMapping("/toUserInfo")
     public String toUserInfo() {
         return "system/user/userInfo";
     }
@@ -53,7 +53,7 @@ public class SystemController {
      * 跳转到修改密码页面
      * @return
      */
-    @RequestMapping("toChangePassword")
+    @RequestMapping("/toChangePassword")
     public String toChangePassword() {
         return "system/user/changePassword";
     }
@@ -62,7 +62,7 @@ public class SystemController {
      * 退出然后跳转到登陆页面
      * @return
      */
-    @RequestMapping("toSignOut")
+    @RequestMapping("/toSignOut")
     public String toSignOut() {
         //销毁session
         WebUtils.getSession().removeAttribute("user");
@@ -74,7 +74,7 @@ public class SystemController {
      * 跳转到日志管理
      * @return
      */
-    @RequestMapping("toLoginfoManager")
+    @RequestMapping("/toLoginfoManager")
     public String toLoginfoManager() {
         return "system/loginfo/loginfoManager";
     }
@@ -83,7 +83,7 @@ public class SystemController {
      * 跳转到公告管理
      * @return
      */
-    @RequestMapping("toNoticeManager")
+    @RequestMapping("/toNoticeManager")
     public String toNoticeManager() {
         return "system/notice/noticeManager";
     }
@@ -92,7 +92,7 @@ public class SystemController {
      * 跳转到部门管理
      * @return
      */
-    @RequestMapping("toDeptManager")
+    @RequestMapping("/toDeptManager")
     public String toDeptManager() {
         return "system/dept/deptManager";
     }
@@ -101,7 +101,7 @@ public class SystemController {
      * 跳转到部门管理--left
      * @return
      */
-    @RequestMapping("toDeptLeft")
+    @RequestMapping("/toDeptLeft")
     public String toDeptLeft() {
         return "system/dept/deptLeft";
     }
@@ -110,7 +110,7 @@ public class SystemController {
      * 跳转到部门管理--right
      * @return
      */
-    @RequestMapping("toDeptRight")
+    @RequestMapping("/toDeptRight")
     public String toDeptRight() {
         return "system/dept/deptRight";
     }
@@ -119,7 +119,7 @@ public class SystemController {
      * 跳转到菜单管理
      * @return
      */
-    @RequestMapping("toMenuManager")
+    @RequestMapping("/toMenuManager")
     public String toMenuManager() {
         return "system/menu/menuManager";
     }
@@ -128,7 +128,7 @@ public class SystemController {
      * 跳转到菜单管理--left
      * @return
      */
-    @RequestMapping("toMenuLeft")
+    @RequestMapping("/toMenuLeft")
     public String toMenuLeft() {
         return "system/menu/menuLeft";
     }
@@ -137,7 +137,7 @@ public class SystemController {
      * 跳转到菜单管理--right
      * @return
      */
-    @RequestMapping("toMenuRight")
+    @RequestMapping("/toMenuRight")
     public String toMenuRight() {
         return "system/menu/menuRight";
     }
@@ -146,7 +146,7 @@ public class SystemController {
      * 跳转到权限管理
      * @return
      */
-    @RequestMapping("toPermissionManager")
+    @RequestMapping("/toPermissionManager")
     public String toPermissionManager() {
         return "system/permission/permissionManager";
     }
@@ -155,7 +155,7 @@ public class SystemController {
      * 跳转到权限管理--left
      * @return
      */
-    @RequestMapping("toPermissionLeft")
+    @RequestMapping("/toPermissionLeft")
     public String toPermissionLeft() {
         return "system/permission/permissionLeft";
     }
@@ -164,7 +164,7 @@ public class SystemController {
      * 跳转到权限管理--right
      * @return
      */
-    @RequestMapping("toPermissionRight")
+    @RequestMapping("/toPermissionRight")
     public String toPermissionRight() {
         return "system/permission/permissionRight";
     }
@@ -173,7 +173,7 @@ public class SystemController {
      * 跳转到角色管理
      * @return
      */
-    @RequestMapping("toRoleManager")
+    @RequestMapping("/toRoleManager")
     public String toRoleManager() {
         return "system/role/roleManager";
     }
@@ -182,7 +182,7 @@ public class SystemController {
      * 跳转到用户管理
      * @return
      */
-    @RequestMapping("toUserManager")
+    @RequestMapping("/toUserManager")
     public String toUserManager() {
         return "system/user/userManager";
     }
@@ -191,7 +191,7 @@ public class SystemController {
      * 跳转到缓存管理
      * @return
      */
-    @RequestMapping("toCacheManager")
+    @RequestMapping("/toCacheManager")
     public String toCacheManager() {
         return "system/cache/cacheManager";
     }

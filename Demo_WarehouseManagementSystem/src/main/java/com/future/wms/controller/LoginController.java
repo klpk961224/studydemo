@@ -37,9 +37,9 @@ public class LoginController {
     @RequestMapping("/login")
     public ResultObj login(SysUserVo userVo, String code, HttpSession session) {
 
-        //获得存储在session中的验证码
+        //获得存储在session中的验证码,支持验证码不区分大小写
         String sessionCode = (String) session.getAttribute("code");
-        if (code != null && sessionCode.equals(code)) {
+        if (code != null && sessionCode.toUpperCase().equals(code.toUpperCase())) {
             Subject subject = SecurityUtils.getSubject();
             AuthenticationToken token = new UsernamePasswordToken(userVo.getLoginname(), userVo.getPwd());
             try {

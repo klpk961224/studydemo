@@ -2,6 +2,7 @@ package com.future.wms.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,6 +19,7 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@TableName("sys_role")
 public class SysRole implements Serializable {
 
     private static final long serialVersionUID = 1698692532231855933L;

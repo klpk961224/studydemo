@@ -9,8 +9,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="/resources/layui/css/layui.css" media="all" />
-    <link rel="stylesheet" href="/resources/css/public.css" media="all" />
+    <link rel="stylesheet" href="resources/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="resources/css/public.css" media="all" />
 </head>
 <body class="childrenBody">
 <form class="layui-form layui-row" method="post">
@@ -120,9 +120,9 @@
         </div>
     </div>
 </form>
-<script type="text/javascript" src="/resources/layui/layui.js"></script>
-<!--<script type="text/javascript" src="/resources/page/user/userInfo.js"></script>-->
-<!--<script type="text/javascript" src="/resources/js/cacheUserInfo.js"></script>-->
+<script type="text/javascript" src="resources/layui/layui.js"></script>
+<!--<script type="text/javascript" src="resources/page/user/userInfo.js"></script>-->
+<!--<script type="text/javascript" src="resources/js/cacheUserInfo.js"></script>-->
 
 <script type="text/javascript">
 
@@ -134,7 +134,7 @@
 
         //获得当前用户的登陆名
         var loginname = $("#loginname");
-        $.get('/user/getNowUser',function (res) {
+        $.get('user/getNowUser',function (res) {
             var name = $("#name");
             name.val(res.name);
             var id = $(".id");
@@ -147,7 +147,7 @@
             address.val(res.address);
 
             var imgpath = res.imgpath;
-            $('#userFace').attr('src','/file/showImageByPath?path='+imgpath);
+            $('#userFace').attr('src','file/showImageByPath?path='+imgpath);
 
         });
 
@@ -155,13 +155,13 @@
         //上传头像
         upload.render({
             elem: '.userFaceBtn',
-            url: '/file/uploadFile',
+            url: 'file/uploadFile',
             acceptMime:'image/*',
             field:'mf',
             method : "post",
             done: function(res, index, upload){
                 var path=res.path;
-                $('#userFace').attr('src','/file/showImageByPath?path='+path);
+                $('#userFace').attr('src','file/showImageByPath?path='+path);
                 $('.userFace').css("background","#fff");
                 //给隐藏域赋值
                 $("#imgpath").val(path);
@@ -171,7 +171,7 @@
         //提交个人资料
         form.on("submit(changeUser)",function(data){
             var index = layer.msg('提交中，请稍候',{icon: 16,time:false,shade:0.8});
-            $.post("/user/updateUserInfo", data.field, function (res) {
+            $.post("user/updateUserInfo", data.field, function (res) {
                 layer.msg(res.msg);
             });
             setTimeout(function(){
