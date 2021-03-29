@@ -14,10 +14,12 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -65,6 +67,13 @@ public class LoginController {
             return ResultObj.LOGIN_ERROR_CODE;
         }
 
+    }
+
+
+    @PostMapping(value = "/logout")
+    public ResultObj logout(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+        session.invalidate();
+        return ResultObj.LOGOUT_SUCCESS;
     }
 
     /**

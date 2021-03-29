@@ -15,6 +15,11 @@
         select pid from sys_role_permission where rid = #{roleId}
     </select>
 
+    <!--根据角色ID查询当前角色拥有的菜单ID和权限ID的父节点ID-->
+    <select id="queryRolePermissionFatherNodeIdsByRid" resultType="java.lang.Integer">
+        select distinct pid from sys_permission where id in (select pid from sys_role_permission where rid = #{roleId})
+    </select>
+
     <!--保存角色和菜单权限之间的关系-->
     <insert id="saveRolePermission">
         insert into sys_role_permission(rid,pid) values (#{rid},#{pid})

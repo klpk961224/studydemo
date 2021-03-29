@@ -195,4 +195,13 @@ public class SystemController {
     public String toCacheManager() {
         return "system/cache/cacheManager";
     }
+
+    /**
+     * 跳转到缓存管理
+     * @return
+     */
+    @RequestMapping("/404")
+    public String to404() {
+        return "system/error/404";
+    }
 }

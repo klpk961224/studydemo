@@ -37,6 +37,52 @@ public class MenuController {
     @Autowired
     private ISysRoleService sysRoleService;
 
+    @RequestMapping("/loadIndexTopMenuJson")
+    public DataGridView loadIndexTopMenuJson(SysPermissionVo permissionVo) {
+        // 查询所有菜单
+        QueryWrapper<SysPermission> queryWrapper = new QueryWrapper<>();
+        // 设置只能查询菜单且可用的
+        queryWrapper.eq("type", Constast.TYPE_MENU);
+        queryWrapper.eq("available", Constast.AVAILABLE_TRUE);
+        queryWrapper.eq("pid", Constast.NODE_FATHER);
+        //针对用户角色，展示不同的菜单显示权限
+        SysUser user = (SysUser) WebUtils.getSession().getAttribute("user");
+        List<SysPermission> list = null;
+        if (Constast.USER_TYPE_SUPER.equals(user.getType())) {
+            list = sysPermissionService.list(queryWrapper);
+        } else {
+            //用户类型为 普通用户
+            //根据用户ID+角色+权限去查询
+            Integer userId = user.getId();
+            //1.根据用户ID查询角色
+            List<Integer> currentUserRoleIds = sysRoleService.queryUserRoleIdsByUid(userId);
+            //2.根据角色ID查询菜单ID和权限ID
+            //使用set去重
+            Set<Integer> pids = new HashSet<>();
+            for (Integer rid : currentUserRoleIds) {
+                //根据角色ID查询菜单ID和权限ID
+                List<Integer> permissionIds = sysRoleService.queryRolePermissionIdsByRid(rid);
+                //将菜单ID和权限ID放入Set中去重
+                pids.addAll(permissionIds);
+                //根据角色ID查询菜单ID和权限ID所对应的父节点的ID
+                List<Integer> permissionFatherNodeIds = sysRoleService.queryRolePermissionFatherNodeIdsByRid(rid);
+                //将菜单ID和权限ID放入Set中去重
+                pids.addAll(permissionFatherNodeIds);
+            }
+            //3.根据角色ID查询权限
+            if (pids.size() > 0) {
+                queryWrapper.in("id", pids);
+                list = sysPermissionService.list(queryWrapper);
+            } else {
+                list = new ArrayList<>();
+            }
+
+        }
+
+        return new DataGridView("menudatas", list);
+
+    }
+
     @RequestMapping("/loadIndexLeftMenuJson")
     public DataGridView loadIndexLeftMenuJson(SysPermissionVo permissionVo) {
         // 查询所有菜单
@@ -96,7 +142,7 @@ public class MenuController {
      * @param permissionVo
      * @return
      */
-    @RequestMapping("loadMenuManagerLeftTreeJson")
+    @RequestMapping("/loadMenuManagerLeftTreeJson")
     public DataGridView loadMenuManagerLeftTreeJson(SysPermissionVo permissionVo) {
 
         QueryWrapper<SysPermission> queryWrapper = new QueryWrapper<>();
@@ -117,7 +163,7 @@ public class MenuController {
      * @param permissionVo
      * @return
      */
-    @RequestMapping("loadAllMenu")
+    @RequestMapping("/loadAllMenu")
     public DataGridView loadAllMenu(SysPermissionVo permissionVo) {
         IPage<SysPermission> page = new Page<>(permissionVo.getPage(), permissionVo.getLimit());
         //进行模糊查询
@@ -138,7 +184,7 @@ public class MenuController {
      * @param permissionVo
      * @return
      */
-    @RequestMapping("addMenu")
+    @RequestMapping("/addMenu")
     public ResultObj addMenu(SysPermissionVo permissionVo) {
         try {
             //设置添加类型为 menu
@@ -155,7 +201,7 @@ public class MenuController {
      * 加载排序码
      * @return
      */
-    @RequestMapping("loadMenuMaxOrderNum")
+    @RequestMapping("/loadMenuMaxOrderNum")
     public Map<String, Object> loadMenuMaxOrderNum() {
         Map<String, Object> map = new HashMap<String, Object>();
         QueryWrapper<SysPermission> queryWrapper = new QueryWrapper<>();
@@ -175,7 +221,7 @@ public class MenuController {
      * @param permissionVo
      * @return
      */
-    @RequestMapping("updateMenu")
+    @RequestMapping("/updateMenu")
     public ResultObj updateMenu(SysPermissionVo permissionVo) {
         try {
             sysPermissionService.updateById(permissionVo);
@@ -191,7 +237,7 @@ public class MenuController {
      * @param permissionVo
      * @return
      */
-    @RequestMapping("checkMenuHasChildrenNode")
+    @RequestMapping("/checkMenuHasChildrenNode")
     public Map<String, Object> checkMenuHasChildrenNode(SysPermissionVo permissionVo) {
         Map<String, Object> map = new HashMap<String, Object>();
         QueryWrapper<SysPermission> queryWrapper = new QueryWrapper<>();
@@ -210,7 +256,7 @@ public class MenuController {
      * @param permissionVo
      * @return
      */
-    @RequestMapping("deleteMenu")
+    @RequestMapping("/deleteMenu")
     public ResultObj deleteMenu(SysPermissionVo permissionVo) {
         try {
             sysPermissionService.removeById(permissionVo.getId());

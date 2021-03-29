@@ -17,6 +17,7 @@ public class ResultObj {
     private String msg;
 
     public static final ResultObj LOGIN_SUCCESS = new ResultObj(Constast.OK, "登陆成功");
+    public static final ResultObj LOGOUT_SUCCESS = new ResultObj(Constast.OK, "登出成功");
     public static final ResultObj LOGIN_ERROR_PASS = new ResultObj(Constast.ERROR, "用户名或密码错误");
     public static final ResultObj LOGIN_ERROR_CODE = new ResultObj(Constast.ERROR, "验证码错误");
 

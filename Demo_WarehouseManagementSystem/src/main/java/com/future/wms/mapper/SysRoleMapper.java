@@ -49,6 +49,15 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
     List<Integer> queryRolePermissionIdsByRid(@Param("roleId") Integer roleId);
 
     /**
+     * @Description [根据角色ID查询当前角色拥有的菜单ID和权限ID]
+     * @Author evanliu
+     * @Date 2021-03-25 17:59
+     * @param: roleId ->
+     * @return java.util.List<java.lang.Integer>
+     **/
+    List<Integer> queryRolePermissionFatherNodeIdsByRid(@Param("roleId") Integer roleId);
+
+    /**
      * @Description [保存角色和菜单权限之间的关系]
      * @Author evanliu
      * @Date 2021-03-25 18:00
@@ -85,4 +94,5 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
      * @return void
      **/
     void insertUserRole(@Param("uid") Integer uid, @Param("rid") Integer rid);
+
 }

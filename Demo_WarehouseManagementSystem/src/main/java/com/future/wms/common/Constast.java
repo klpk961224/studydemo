@@ -55,4 +55,10 @@ public class Constast {
      * 用户默认图片
      */
     public static final String DEFAULT_IMG_USER = "/images/face.jpg";
+
+    /**
+     * 父子节点
+     */
+    public static final Integer NODE_FATHER = 0;
+    public static final Integer NODE_SON = 1;
 }

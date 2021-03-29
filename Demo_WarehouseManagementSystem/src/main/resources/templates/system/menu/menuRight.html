@@ -276,7 +276,7 @@
                             $("#dataFrm")[0].reset();
                             //设置下拉树中父节点的值为空
                             $("#pid").val("");
-                            url = "/menu/addMenu";
+                            url = "menu/addMenu";
                             //初始化排序码
                             $.get("menu/loadMenuMaxOrderNum", function (res) {
                                 $("#ordernum").val(res.value);

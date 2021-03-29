@@ -319,11 +319,12 @@
                 btnAlign: 'c',
                 yes: function (index, layero) {
                     var permissionData = dtree.getCheckbarNodesParam("permissionTree");
+                    console.log(permissionData);
                     var params = "rid=" + data.id;
-                    console.log(params);
                     $.each(permissionData, function (index, item) {
                         params += "&ids=" + item.nodeId;
                     });
+                    console.log(params);
                     $.post("role/saveRolePermission", params, function (res) {
                         layer.msg(res.msg);
                     });

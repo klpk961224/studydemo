@@ -47,6 +47,16 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     }
 
     /**
+     * 根据角色ID查询当前角色拥有的菜单ID和权限ID的父节点ID
+     * @param roleId    角色id
+     * @return
+     */
+    @Override
+    public List<Integer> queryRolePermissionFatherNodeIdsByRid(Integer roleId) {
+        return this.getBaseMapper().queryRolePermissionFatherNodeIdsByRid(roleId);
+    }
+
+    /**
      * 保存角色和菜单权限之间的关系
      * @param rid
      * @param ids

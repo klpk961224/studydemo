@@ -25,6 +25,15 @@ public interface ISysRoleService extends IService<SysRole> {
     List<Integer> queryRolePermissionIdsByRid(Integer roleId);
 
     /**
+     * @Description [根据角色ID查询当前角色拥有的菜单ID和权限ID的父节点的ID]
+     * @Author evanliu
+     * @Date 2021-03-25 17:53
+     * @param: id ->
+     * @return java.util.List<java.lang.Integer>
+     **/
+    List<Integer> queryRolePermissionFatherNodeIdsByRid(Integer rid);
+
+    /**
      * @Description [保存角色和菜单权限之间的关系]
      * @Author evanliu
      * @Date 2021-03-25 17:53
@@ -42,5 +51,4 @@ public interface ISysRoleService extends IService<SysRole> {
      * @return java.util.List<java.lang.Integer>
      **/
     List<Integer> queryUserRoleIdsByUid(Integer id);
-
 }
