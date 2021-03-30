@@ -11,47 +11,55 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="icon" href="/resources/favicon.ico">
-    <link rel="stylesheet" href="resources/layui/css/layui.css" th:href="@{/resources/layui/css/layui.css}" media="all"/>
-    <link rel="stylesheet" th:href="@{/resources/css/public.css}" media="all"/>
-    <link rel="stylesheet" th:href="@{/resources/layui_ext/dtree/dtree.css}" media="all"/>
-    <link rel="stylesheet" th:href="@{/resources/layui_ext/dtree/font/dtreefont.css}" media="all"/>
+    <link rel="icon" href="../resources/favicon.ico">
+    <link rel="stylesheet" href="resources/layui/css/layui.css" th:href="@{../resources/layui/css/layui.css}"
+          media="all"/>
+    <link rel="stylesheet" th:href="@{../resources/css/public.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{../resources/layui_ext/dtree/dtree.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{../resources/layui_ext/dtree/font/dtreefont.css}" media="all"/>
     <style>
         input#search_customeridTree_select_input_id {
             border-radius: 10px;
             height: 30px;
             margin-top: 4px;
         }
+
         input#customeridTree_select_input_id {
             border-radius: 10px;
             height: 30px;
             margin-top: 4px;
         }
+
         input#leadercustomeridTree_select_input_id {
             border-radius: 10px;
             height: 30px;
             margin-top: 4px;
         }
+
         input.layui-input.layui-unselect {
             border-radius: 10px;
             height: 30px;
             margin-top: 4px;
         }
+
         input#search_goodsidTree_select_input_id {
             border-radius: 10px;
             height: 30px;
             margin-top: 4px;
         }
+
         input#goodsidTree_select_input_id {
             border-radius: 10px;
             height: 30px;
             margin-top: 4px;
         }
+
         input#leadergoodsidTree_select_input_id {
             border-radius: 10px;
             height: 30px;
             margin-top: 4px;
         }
+
         input.layui-input.layui-unselect {
             border-radius: 10px;
             height: 30px;
@@ -113,14 +121,15 @@
 <div>
     <table class="layui-hide" id="salesbackTable" lay-filter="salesbackTable"></table>
     <div id="salesbackRowBar" style="display: none;">
-        <button type="button" lay-event="delete" shiro:hasPermission="salesback:delete" class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius"><i
+        <button type="button" lay-event="delete" shiro:hasPermission="salesback:delete"
+                class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius"><i
                 class="layui-icon layui-icon-delete"></i>删除
         </button>
     </div>
 </div>
 
 
-<script type="text/javascript" src="/resources/layui/layui.js"></script>
+<script type="text/javascript" src="../resources/layui/layui.js"></script>
 
 <script type="text/javascript">
 
@@ -148,23 +157,25 @@
         tableIns = table.render({
             elem: "#salesbackTable",
             title: "进货数据表格",
-            url: "/salesback/loadAllSalesback",
+            url: "salesback/loadAllSalesback",
             toolbar: true,
             page: true,
             height: "full-180",
-            cols: [ [
-                {field: 'id', title: 'ID', align: 'center'},
-                {field: 'customername', title: '客户', align: 'center',width:'130'},
-                {field: 'goodsname', title: '商品名称', align: 'center',width:'150'},
-                {field: 'paytype', title: '支付类型', align: 'center',width:'90'},
-                {field: 'salesbacktime', title: '退货时间', align: 'center',width:'170'},
-                {field: 'operateperson', title: '操作员', align: 'center',width:'130'},
-                {field: 'number', title: '退货数量', align: 'center',width:'100'},
-                {field: 'salebackprice', title: '退货价格', align: 'center',width:'120'},
-                {field: 'remark', title: '备注', align: 'center',width:'130'},
-                {field: 'size', title: '商品规格', align: 'center',width:'100'},
-                {fixed: 'right', title: '操作', toolbar: '#salesbackRowBar', align: 'center',width:'130'}
-            ] ],
+            cols: [
+                [
+                    {field: 'id', title: 'ID', align: 'center'},
+                    {field: 'customername', title: '客户', align: 'center', width: '130'},
+                    {field: 'goodsname', title: '商品名称', align: 'center', width: '150'},
+                    {field: 'paytype', title: '支付类型', align: 'center', width: '90'},
+                    {field: 'salesbacktime', title: '退货时间', align: 'center', width: '170'},
+                    {field: 'operateperson', title: '操作员', align: 'center', width: '130'},
+                    {field: 'number', title: '退货数量', align: 'center', width: '100'},
+                    {field: 'salebackprice', title: '退货价格', align: 'center', width: '120'},
+                    {field: 'remark', title: '备注', align: 'center', width: '130'},
+                    {field: 'size', title: '商品规格', align: 'center', width: '100'},
+                    {fixed: 'right', title: '操作', toolbar: '#salesbackRowBar', align: 'center', width: '130'}
+                ]
+            ],
             done: function (data, curr, count) {
                 //不是第一页时，如果当前返回的数据为0那么就返回上一页
                 if (data.data.length == 0 && curr != 1) {
@@ -196,28 +207,29 @@
                 case 'delete':
                     deleteSalesback(data);
                     break;
-            };
+            }
+            ;
         });
 
         //初始化客户名称的下拉列表
-        $.get("/customer/loadAllCustomerForSelect",function (res) {
+        $.get("customer/loadAllCustomerForSelect", function (res) {
             var data = res.data;
             var dom = $("#select_customerid");
             var html = '<option value="0">请选择客户</option>';
-            $.each(data,function (index, item) {
-                html += '<option value="'+item.id+'">'+item.customername+'</option>';
+            $.each(data, function (index, item) {
+                html += '<option value="' + item.id + '">' + item.customername + '</option>';
             })
             dom.html(html);
             //重新渲染下拉列表
             form.render("select");
         });
         //初始化商品名称的下拉列表
-        $.get("/goods/loadAllGoodsForSelect",function (res) {
+        $.get("/goods/loadAllGoodsForSelect", function (res) {
             var data = res.data;
             var dom = $("#select_goodsid");
             var html = '<option value="0">请选择商品</option>';
-            $.each(data,function (index, item) {
-                html += '<option value="'+item.id+'">'+item.goodsname+'-['+item.size+']-'+'['+item.providername+']'+'</option>';
+            $.each(data, function (index, item) {
+                html += '<option value="' + item.id + '">' + item.goodsname + '-[' + item.size + ']-' + '[' + item.providername + ']' + '</option>';
             });
             dom.html(html);
             //重新渲染下拉列表
@@ -227,10 +239,10 @@
         //删除退货信息
         function deleteSalesback(data) {
             layer.confirm('你确定要删除这条退货信息吗？', {icon: 3, title: '提示'}, function (index) {
-                $.post("/salesback/deleteSalesback", {id: data.id},function (res) {
+                $.post("salesback/deleteSalesback", {id: data.id}, function (res) {
                     if (res.code == 200) {
                         tableIns.reload({
-                            where:"",
+                            where: "",
                         });
                     }
                     layer.msg(res.msg);

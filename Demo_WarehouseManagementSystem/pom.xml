@@ -192,7 +192,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.7.RELEASE</version>
                 <configuration>
-                    <mainClass>com.future.wms.WmsApplication</mainClass>
+                    <mainClass>com.future.WmsApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

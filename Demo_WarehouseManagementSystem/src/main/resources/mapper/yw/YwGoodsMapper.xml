@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.future.yw.mapper.YwGoodsMapper">
+
+    <!-- 根据商品id删除商品销售信息 -->
+    <delete id="deleteSaleByGoodsId">
+        delete from yw_sales where goodsid = #{goodsid}
+    </delete>
+
+    <!-- 根据商品id删除商品销售退货信息 -->
+    <delete id="deleteSaleBackByGoodsId">
+        delete from yw_salesback where goodsid = #{goodsid}
+    </delete>
+
+    <!-- 根据商品id删除商品进货信息 -->
+    <delete id="deleteImportByGoodsId">
+        delete from yw_import where goodsid = #{goodsid}
+    </delete>
+
+    <!-- 根据商品id删除商品退货信息 -->
+    <delete id="deleteOutportByGoodsId">
+        delete from yw_outport where goodsid = #{goodsid}
+    </delete>
+
+    <!-- 根据客户id删除商品销售 -->
+    <delete id="deleteSaleByCustomerId">
+        delete from yw_sales where customerid = #{customerid}
+    </delete>
+
+    <!-- 根据客户id删除商品销售退货信息 -->
+    <delete id="deleteSaleBackByCustomerId">
+        delete from yw_salesback where customerid = #{customerid}
+    </delete>
+
+    <!--查询所有库存预警商品-->
+    <select id="loadAllWarning" resultType="com.future.yw.model.entity.YwGoods">
+        select * from yw_goods where dangernum > number
+    </select>
+
+</mapper>

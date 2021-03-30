@@ -3,6 +3,12 @@ package com.future.wms.cache;
 import cn.hutool.extra.spring.SpringUtil;
 import com.future.wms.mapper.*;
 import com.future.wms.model.entity.*;
+import com.future.yw.mapper.YwCustomerMapper;
+import com.future.yw.mapper.YwGoodsMapper;
+import com.future.yw.mapper.YwProviderMapper;
+import com.future.yw.model.entity.YwCustomer;
+import com.future.yw.model.entity.YwGoods;
+import com.future.yw.model.entity.YwProvider;
 
 import java.util.HashMap;
 import java.util.List;
