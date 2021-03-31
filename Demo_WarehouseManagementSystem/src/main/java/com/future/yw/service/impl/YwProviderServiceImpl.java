@@ -74,7 +74,7 @@ public class YwProviderServiceImpl extends ServiceImpl<YwProviderMapper, YwProvi
         //根据供应商id删除商品退货信息
         this.getBaseMapper().deleteOutPortByProviderId(id);
         //根据供应商id删除商品进货信息
-        this.getBaseMapper().deleteInportByProviderId(id);
+        this.getBaseMapper().deleteImportByProviderId(id);
         //根据供应商id删除商品
         this.getBaseMapper().deleteGoodsByProviderId(id);
         //删除供应商

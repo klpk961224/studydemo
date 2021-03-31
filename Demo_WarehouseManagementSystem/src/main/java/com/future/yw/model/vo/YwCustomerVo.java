@@ -12,6 +12,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class YwCustomerVo extends YwCustomer {
 
+    private static final long serialVersionUID = 1849884516902117595L;
     /**
      * 分页参数，当前是第一页，每页10条数据
      */

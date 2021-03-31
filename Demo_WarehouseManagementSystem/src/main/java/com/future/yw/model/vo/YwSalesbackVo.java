@@ -15,6 +15,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 public class YwSalesbackVo extends YwSalesback {
 
+    private static final long serialVersionUID = -7306206199028838425L;
     private Integer page = 1;
 
     private Integer limit = 10;

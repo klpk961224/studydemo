@@ -4,12 +4,12 @@
 
     <!-- 根据供应商id删除商品信息 -->
     <delete id="deleteGoodsByProviderId">
-        delete from bus_goods where providerid = #{pid}
+        delete from yw_goods where providerid = #{pid}
     </delete>
 
     <!-- 根据供应商id删除商品进货信息 -->
-    <delete id="deleteInportByProviderId">
-        delete from bus_inport where providerid = #{pid}
+    <delete id="deleteImportByProviderId">
+        delete from yw_import where providerid = #{pid}
     </delete>
 
     <!-- 根据供应商id删除商品退货信息 -->

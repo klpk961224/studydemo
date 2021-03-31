@@ -10,13 +10,9 @@ import com.future.wms.common.ResultObj;
 import com.future.yw.model.entity.YwCustomer;
 import com.future.yw.model.vo.YwCustomerVo;
 import com.future.yw.service.IYwCustomerService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -91,9 +87,7 @@ public class YwCustomerController {
      * @param id 客户的ID
      * @return
      */
-    @ApiOperation(value = "删除一个客户", notes = "删除一个客户")
-    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "客户ID", required = true, paramType = "query", dataType = "Integer")})
-    @RequestMapping(value = "deleteCustomer", method = RequestMethod.DELETE)
+    @RequestMapping("/deleteCustomer")
     public ResultObj deleteCustomer(Integer id) {
         try {
             iYwCustomerService.deleteCustomerById(id);
@@ -103,7 +97,6 @@ public class YwCustomerController {
             return ResultObj.DELETE_ERROR;
         }
     }
-
 
     /**
      * 加载所有客户的下拉列表

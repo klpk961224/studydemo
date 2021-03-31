@@ -26,7 +26,7 @@ public interface YwProviderMapper extends BaseMapper<YwProvider> {
      * 根据供应商id删除商品进货信息
      * @param id
      */
-    void deleteInportByProviderId(@Param("pid") Integer id);
+    void deleteImportByProviderId(@Param("pid") Integer id);
 
     /**
      * 根据供应商id删除商品退货信息

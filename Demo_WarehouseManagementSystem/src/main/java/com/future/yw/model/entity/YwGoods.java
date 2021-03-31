@@ -55,6 +55,11 @@ public class YwGoods implements Serializable {
 
     private String goodsimg;
 
+    /**
+     * 状态【0不可用1可用】
+     */
+    private Integer available;
+
     @TableField(exist = false)
     private String providername;
 

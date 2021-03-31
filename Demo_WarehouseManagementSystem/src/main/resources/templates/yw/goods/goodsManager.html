@@ -159,9 +159,9 @@
                 </div>
                 <div class="layui-col-md3 layui-col-xs5">
                     <div class="layui-upload-list thumbBox mag0 magt3">
-                        <input type="hidden" name="goodsimg" id="goodsimg" value="images/noDefaultImage.jpg">
+                        <input type="hidden" name="goodsimg" id="goodsimg" value="../resources/images/defaultimage.jpg">
                         <img class="layui-upload-img thumbImg"
-                             src="../file/showImageByPath?path=images/noDefaultImage.jpg">
+                             src="../resources/images/defaultimage.jpg">
                     </div>
                 </div>
             </div>
@@ -399,8 +399,8 @@
                         form.render("select");
                     });
                     //设置默认为无图片
-                    $(".thumbImg").attr("src", '../file/showImageByPath?path=images/noDefaultImage.jpg');
-                    $("#goodsimg").val('images/noDefaultImage.jpg');
+                    $(".thumbImg").attr("src", '../resources/images/defaultimage.jpg');
+                    $("#goodsimg").val('../resources/images/defaultimage.jpg');
                 }
             });
         }

@@ -44,7 +44,7 @@ public class Constast {
     /**
      * 商品默认图片
      */
-    public static final String DEFAULT_IMG_GOODS = "/images/face.jpg";
+    public static final String DEFAULT_IMG_GOODS = "images/defaultimage.jpg";
 
     /**
      * hash散列次数
@@ -54,7 +54,7 @@ public class Constast {
     /**
      * 用户默认图片
      */
-    public static final String DEFAULT_IMG_USER = "/images/face.jpg";
+    public static final String DEFAULT_IMG_USER = "images/face.jpg";
 
     /**
      * 父子节点

@@ -15,6 +15,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 public class YwImportVo extends YwImport {
 
+    private static final long serialVersionUID = 9058284090593118704L;
     private Integer page = 1;
 
     private Integer limit = 10;
